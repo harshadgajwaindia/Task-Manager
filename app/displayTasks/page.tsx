@@ -1,6 +1,7 @@
 "use client";
 
-import { CheckCheck, Pencil, Trash2 } from "lucide-react";
+import TasksSkeleton from "@/components/TasksSkeleton";
+import { CheckCheck, FileX2, Pencil, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface Task {
@@ -14,22 +15,27 @@ interface Task {
 
 export default function DisplayTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchTasks = async () => {
+    setLoading(true);
     try {
       const res = await fetch("/api/displayTasks", {
         method: "GET",
         credentials: "include",
+        cache: "no-store",
       });
 
       if (res.ok) {
         const data = await res.json();
         setTasks(data.tasks);
       } else {
-        console.error("Error fetching tasks");
+        console.log("Error fetching tasks");
       }
     } catch (error) {
       console.error("Fetch error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,6 +48,7 @@ export default function DisplayTasks() {
       const res = await fetch(`/api/task/${taskId}`, {
         method: "DELETE",
         credentials: "include",
+        cache: "no-store",
       });
 
       if (res.ok) {
@@ -59,6 +66,7 @@ export default function DisplayTasks() {
     try {
       const res = await fetch(`/api/task/${taskId}/read`, {
         method: "PATCH",
+        cache: "no-store",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ read: true }),
@@ -86,6 +94,7 @@ export default function DisplayTasks() {
     try {
       const res = await fetch(`/api/task/${taskId}/edit`, {
         method: "PATCH",
+        cache: "no-store",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ description: newDescription }),
@@ -105,12 +114,16 @@ export default function DisplayTasks() {
   return (
     <div className=" min-h-screen text-black flex flex-col bg-gradient-to-br from-neutral-100 to-neutral-200">
       <div className="py-20 px-5">
-        <h1 className="text-neutral-700 text-2xl font-semibold mb-4 underline">
-          Your Tasks
-        </h1>
-
         {tasks.length === 0 ? (
-          <p>No tasks found.</p>
+          <div>
+            {loading ? (
+              <TasksSkeleton />
+            ) : (
+              <div className="flex justify-center items-center">
+                <FileX2 className="w-16 h-16 text-gray-400" />
+              </div>
+            )}
+          </div>
         ) : (
           <div className="w-full rounded p-5">
             <ul className="space-y-6">
@@ -155,7 +168,7 @@ export default function DisplayTasks() {
                   <div className="font-semibold p-2 px-4 text-lg">
                     {task.description}
                   </div>
-                  <span className="flex justify-end text-neutral-600 p-2">
+                  <span className="flex justify-end text-neutral-600 p-2 sm:text-sm">
                     Created: {new Date(task.createdAt).toLocaleString()}
                   </span>
                 </li>

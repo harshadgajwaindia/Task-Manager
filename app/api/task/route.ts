@@ -18,9 +18,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "not authenticated" }, { status: 401 });
 
     const sessionRaw = await redis.get(`session:${sessionId}`);
-    console.log("Raw session from Redis:", sessionRaw);
-    console.log("Type of session:", typeof sessionRaw);
-
+    
     if (!sessionRaw) {
       return NextResponse.json(
         { success: false, error: "Session not found" },
@@ -32,8 +30,7 @@ export async function POST(req: NextRequest) {
     try {
       sessionData =
         typeof sessionRaw === "string" ? JSON.parse(sessionRaw) : sessionRaw;
-      console.log("Parsed session data:", sessionData);
-      console.log("User ID from session:", sessionData.id);
+     
     } catch (e) {
       console.error("Invalid session data:", e);
       return NextResponse.json(

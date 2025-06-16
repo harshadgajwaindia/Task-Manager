@@ -32,14 +32,15 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="flex">
+        <div className="hidden md:flex">
           <div>
             <Link
               className="text-gray-300 hover:text-white transition"
               href="/"
+              prefetch ={true}
             >
               <div className=" px-7 flex items-center">
-                {" "}
+                
                 <Home />
               </div>
               <div>
@@ -51,9 +52,10 @@ export default function Navbar() {
             <Link
               className="text-gray-300 hover:text-white transition"
               href="../displayTasks"
+              prefetch ={true}
             >
               <div className="px-7 flex items-center">
-                {" "}
+                
                 <Clipboard />
               </div>
               <div>

@@ -16,6 +16,7 @@ export default function signup() {
    try {
      const res = await fetch("/api/signup", {
       method: "POST",
+      cache: "no-store",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
