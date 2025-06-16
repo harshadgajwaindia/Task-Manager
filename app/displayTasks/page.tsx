@@ -130,8 +130,7 @@ export default function DisplayTasks() {
               {tasks.map((task) => (
                 <li
                   key={task.id}
-                  className=" shadow rounded bg-neutral-100 hover:bg-neutral-200 transition"
-                >
+                  className="shadow rounded bg-neutral-100 hover:bg-neutral-200 hover:scale-[1.02] transition-transform duration-300" >
                   <div className="flex justify-end py-1">
                     <button
                       onClick={() => markAsRead(task.id)}
