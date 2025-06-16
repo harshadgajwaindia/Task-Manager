@@ -3,19 +3,22 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { taskId: string } }
+  context: { params: { taskId: string } }
 ) {
   try {
+    const { taskId } = context.params;
+
     const { description } = await req.json();
 
-    if (description === undefined)
+    if (description === undefined) {
       return NextResponse.json(
         { message: "description is required" },
         { status: 400 }
       );
+    }
 
     const updateTask = await prisma.task.update({
-      where: { id: params.taskId },
+      where: { id: taskId },
       data: { description },
     });
 
