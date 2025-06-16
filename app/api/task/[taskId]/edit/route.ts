@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
   req: NextRequest,
-  context: { params: { taskId: string } }
+  { params }: { params: Record<string, string> }
 ) {
   try {
-    const { taskId } = context.params;
+    const { taskId } = await params;
 
     const { description } = await req.json();
 

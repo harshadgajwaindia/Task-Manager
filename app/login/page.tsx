@@ -41,7 +41,7 @@ export default function login() {
 
   return (
     <>
-      <div className="h-screen flex items-center justify-center flex-col bg-gradient-to-br from-neutral-100 to-neutral-200 text-black">
+      <div className="h-screen flex items-center justify-center flex-col bg-gradient-to-br from-neutral-50 to-neutral-200 text-black">
         <div className="shadow-2xl rounded p-4">
           <div className="p-3 flex items-center justify-center underline text-2xl">
             <h1>Login</h1>
