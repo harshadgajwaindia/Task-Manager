@@ -7,7 +7,7 @@ export default function Navbar() {
   const router = useRouter();
   const handleLogOut = async () => {
     try {
-      const res = await fetch("/api/(auth)/logout", {
+      const res = await fetch("/api/logout", {
         method: "POST",
       });
       if (res.ok) {
