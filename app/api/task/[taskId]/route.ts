@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: Record<string, string> }
+  context: { params: Record<string, string> }
 ) {
   try {
-    const { taskId } = await params;
+    const { taskId } = await context.params;
 
     const task = await prisma.task.findUnique({
       where: { id: taskId },

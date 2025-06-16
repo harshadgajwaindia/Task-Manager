@@ -6,9 +6,7 @@ export async function PATCH(
   context: { params: Record<string, string> }
 ) {
   try {
-    const { params } = await context;
-    const { taskId } = await params;
-
+    const { taskId } = await context.params;
     const { read } = await req.json();
 
     if (read === undefined) {
