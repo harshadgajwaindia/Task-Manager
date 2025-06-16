@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const origin = req.nextUrl.origin;
-  const response = NextResponse.redirect(new URL("/login", origin));
+  const response = NextResponse.json({ message: "Logged out" });
 
   response.cookies.set("session", "", {
     maxAge: 0,
-    path: "/",           
-    secure: process.env.NODE_ENV === "production",        
-    sameSite: "lax",    
+    path: "/",
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
   });
 
   return response;
