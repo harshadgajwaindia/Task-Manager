@@ -12,7 +12,7 @@ export default function Navbar() {
       });
       if (res.ok) {
         alert("user logged out");
-        router.push("/");
+        router.push("/signup");
       } else {
         alert("logout failed");
       }
