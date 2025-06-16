@@ -7,12 +7,12 @@ export default function Navbar() {
   const router = useRouter();
   const handleLogOut = async () => {
     try {
-      const res = await fetch("/api/logout", {
+      const res = await fetch("/api/(auth)/logout", {
         method: "POST",
       });
       if (res.ok) {
         alert("user logged out");
-        router.push("/signup");
+        router.push("/");
       } else {
         alert("logout failed");
       }
